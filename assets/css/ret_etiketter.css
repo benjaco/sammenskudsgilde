@@ -1,0 +1,22 @@
+.ret-view .table-labels {
+  font-weight: bold;
+  max-width: 500px;
+}
+.ret-view .table-labels div {
+  float: left;
+}
+.ret-view #ret_container {
+  max-width: 500px;
+}
+.ret-view #ret_container > div {
+  padding-top: 5px;
+}
+.ret-view #ret_container > div input {
+  width: 90%;
+  padding: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+.ret-view #ret_container > div div {
+  float: left;
+}

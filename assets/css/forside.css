@@ -1,0 +1,44 @@
+.home-view #labels {
+  margin-top: 15px;
+  padding-left: 35px;
+}
+.home-view #labels span {
+  margin-right: 15px;
+  min-width: 30px;
+  max-width: 115px;
+  font-weight: bold;
+  word-break: keep-all;
+}
+.home-view #labels span.dynamic {
+  margin-right: 35px;
+}
+.home-view #labels span:nth-child(1) {
+  width: 106px;
+}
+.home-view #labels span:nth-child(2) {
+  padding-right: 25px;
+}
+.home-view #rowholder input {
+  padding: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+  margin-right: 15px;
+}
+.home-view #rowholder > div {
+  padding: 5px;
+}
+.home-view #rowholder label {
+  position: relative;
+  top: 4px;
+  width: 30px;
+}
+.home-view #rowholder input:nth-child(2) {
+  width: 107px;
+}
+.home-view #rowholder input:nth-child(3) {
+  width: 82px;
+}
+#more_priceinfomation {
+  margin-top: 15px;
+  color: #666666;
+}

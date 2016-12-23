@@ -1,0 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #ECECEC;
+}
+.material-head {
+  background: #4285f4;
+  box-shadow: 0 -10px 4px 10px rgba(0, 0, 0, 0.14), 0 -6px 8px 10px rgba(0, 0, 0, 0.28);
+  min-height: 56px;
+}
+.material-head span {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 400;
+  display: inline-block;
+  padding-left: 1px;
+  margin: 15px 0 10px 15px;
+}
+.material-head .back {
+  height: 40px;
+  width: 40px;
+  margin: 8px;
+  float: left;
+  background-image: url(../img/back.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30px 30px;
+  cursor: pointer;
+}
+.ret-view .table-labels {
+  font-weight: bold;
+  max-width: 500px;
+}
+.ret-view .table-labels div {
+  float: left;
+}
+.ret-view #ret_container {
+  max-width: 500px;
+}
+.ret-view #ret_container > div {
+  padding-top: 5px;
+}
+.ret-view #ret_container > div input {
+  width: 90%;
+  padding: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+.ret-view #ret_container > div div {
+  float: left;
+}
+.home-view #labels {
+  margin-top: 15px;
+  padding-left: 35px;
+}
+.home-view #labels span {
+  margin-right: 15px;
+  min-width: 30px;
+  max-width: 115px;
+  font-weight: bold;
+  word-break: keep-all;
+}
+.home-view #labels span.dynamic {
+  margin-right: 35px;
+}
+.home-view #labels span:nth-child(1) {
+  width: 106px;
+}
+.home-view #labels span:nth-child(2) {
+  padding-right: 25px;
+}
+.home-view #rowholder input {
+  padding: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+  margin-right: 15px;
+}
+.home-view #rowholder > div {
+  padding: 5px;
+}
+.home-view #rowholder label {
+  position: relative;
+  top: 4px;
+  width: 30px;
+}
+.home-view #rowholder input:nth-child(2) {
+  width: 107px;
+}
+.home-view #rowholder input:nth-child(3) {
+  width: 82px;
+}
+#more_priceinfomation {
+  margin-top: 15px;
+  color: #666666;
+}
+.action {
+  padding: 7px;
+  margin: 3px 0;
+  font-size: 0.95em;
+  background: #da4437 !important;
+  color: #ffffff;
+  border-radius: 2px;
+}
+.view {
+  padding: 15px;
+}
+.back {
+  display: none;
+}
+.clear {
+  clear: both;
+}
+.jcalculator_wrap {
+  display: inline;
+}
+.jcalculator {
+  top: 35px !important;
+}
