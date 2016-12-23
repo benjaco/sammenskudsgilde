@@ -9,7 +9,7 @@ export default class EditPaymentDistribution {
         this.app = app;
 
         this.app.viewhandler.setView(`
-        <div class="ret-view">            
+        <div class="ret-view p15">            
             <div class="table-labels"> 
                 <div style="width: 70%;">Etikette</div> 
                 <div style="width: 30%;">% af en voksen</div> 

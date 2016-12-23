@@ -8,14 +8,20 @@ export default class Home {
         this.app = app;
 
         this.app.viewhandler.setView(`<div class="home-view">
-        <p>Med denne side kan du beregne hvad de individulle gæster skylder eller har tilgode ved et sammenskudsgilde</p>
-        <p>Som standard betaler et barn det halve af en voksen
-            <button class="material-button material-ink material-ripple action" style="margin-left: 10px;" id="ret_mulighedder">Ret / Tilføj fordeling</button>
-        </p>
-        <p><b>!!MEGET VIGTIG!! Udbetal ikke differance FØR oplysniger fra ALLE DELTAGER er indtastet</b></p>
-        <div id="labels"></div>
-        <div id="rowholder"></div></div>
-        <div id="more_priceinfomation">
+        <div class="p15">
+            <p>Med denne side kan du beregne hvad de individulle gæster skylder eller har tilgode ved et sammenskudsgilde</p>
+            <p>Som standard betaler et barn det halve af en voksen
+                <button class="material-button material-ink material-ripple action" style="margin-left: 10px;" id="ret_mulighedder">Ret / Tilføj fordeling</button>
+            </p>
+            <p><b>!!MEGET VIGTIG!! Udbetal ikke differance FØR oplysniger fra ALLE DELTAGER er indtastet</b></p>
+        </div>
+        <div id="sidescroll">
+            <div id="sidescroll_inner" class="p15">
+                <div id="labels"></div>
+                <div id="rowholder"></div></div>
+            </div>
+        </div>
+        <div id="more_priceinfomation" class="p15">
             <p>Penge brugt i alt: <span id="total">0</span></p>
             <div id="paymentdistributions"></div>
         </div>

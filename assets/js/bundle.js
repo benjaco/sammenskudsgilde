@@ -217,7 +217,7 @@
 	
 	        this.app = app;
 	
-	        this.app.viewhandler.setView("<div class=\"home-view\">\n        <p>Med denne side kan du beregne hvad de individulle g\xE6ster skylder eller har tilgode ved et sammenskudsgilde</p>\n        <p>Som standard betaler et barn det halve af en voksen\n            <button class=\"material-button material-ink material-ripple action\" style=\"margin-left: 10px;\" id=\"ret_mulighedder\">Ret / Tilf\xF8j fordeling</button>\n        </p>\n        <p><b>!!MEGET VIGTIG!! Udbetal ikke differance F\xD8R oplysniger fra ALLE DELTAGER er indtastet</b></p>\n        <div id=\"labels\"></div>\n        <div id=\"rowholder\"></div></div>\n        <div id=\"more_priceinfomation\">\n            <p>Penge brugt i alt: <span id=\"total\">0</span></p>\n            <div id=\"paymentdistributions\"></div>\n        </div>\n        \n");
+	        this.app.viewhandler.setView("<div class=\"home-view\">\n        <div class=\"p15\">\n            <p>Med denne side kan du beregne hvad de individulle g\xE6ster skylder eller har tilgode ved et sammenskudsgilde</p>\n            <p>Som standard betaler et barn det halve af en voksen\n                <button class=\"material-button material-ink material-ripple action\" style=\"margin-left: 10px;\" id=\"ret_mulighedder\">Ret / Tilf\xF8j fordeling</button>\n            </p>\n            <p><b>!!MEGET VIGTIG!! Udbetal ikke differance F\xD8R oplysniger fra ALLE DELTAGER er indtastet</b></p>\n        </div>\n        <div id=\"sidescroll\">\n            <div id=\"sidescroll_inner\" class=\"p15\">\n                <div id=\"labels\"></div>\n                <div id=\"rowholder\"></div></div>\n            </div>\n        </div>\n        <div id=\"more_priceinfomation\" class=\"p15\">\n            <p>Penge brugt i alt: <span id=\"total\">0</span></p>\n            <div id=\"paymentdistributions\"></div>\n        </div>\n        \n");
 	
 	        this.columnWidths = [];
 	        this.displayedRows = [];
@@ -696,7 +696,7 @@
 	
 	        this.app = app;
 	
-	        this.app.viewhandler.setView("\n        <div class=\"ret-view\">            \n            <div class=\"table-labels\"> \n                <div style=\"width: 70%;\">Etikette</div> \n                <div style=\"width: 30%;\">% af en voksen</div> \n            </div>\n            <div class=\"clear\"></div>\n            <div id=\"ret_container\"></div>\n            <p>Hvis du fjerner en mulighed der er deltager p\xE5, bliver deltageren flyttet over i voksen kategorien</p>\n            <button class=\"material-button material-ink material-ripple action\" style=\"margin-top: 10px;\" id=\"ret_gem\">Gem</button>\n        </div>");
+	        this.app.viewhandler.setView("\n        <div class=\"ret-view p15\">            \n            <div class=\"table-labels\"> \n                <div style=\"width: 70%;\">Etikette</div> \n                <div style=\"width: 30%;\">% af en voksen</div> \n            </div>\n            <div class=\"clear\"></div>\n            <div id=\"ret_container\"></div>\n            <p>Hvis du fjerner en mulighed der er deltager p\xE5, bliver deltageren flyttet over i voksen kategorien</p>\n            <button class=\"material-button material-ink material-ripple action\" style=\"margin-top: 10px;\" id=\"ret_gem\">Gem</button>\n        </div>");
 	
 	        this.view = document.querySelector(".ret-view");
 	
