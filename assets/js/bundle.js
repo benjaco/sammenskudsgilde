@@ -217,12 +217,13 @@
 	
 	        this.app = app;
 	
-	        this.app.viewhandler.setView("<div class=\"home-view\">\n        <div class=\"p15\">\n            <p>Med denne side kan du beregne hvad de individulle g\xE6ster skylder eller har tilgode ved et sammenskudsgilde</p>\n            <p>Som standard betaler et barn det halve af en voksen\n                <button class=\"material-button material-ink material-ripple action\" style=\"margin-left: 10px;\" id=\"ret_mulighedder\">Ret / Tilf\xF8j fordeling</button>\n            </p>\n            <p><b>!!MEGET VIGTIG!! Udbetal ikke differance F\xD8R oplysniger fra ALLE DELTAGER er indtastet</b></p>\n        </div>\n        <div id=\"sidescroll\">\n            <div id=\"sidescroll_inner\" class=\"p15\">\n                <div id=\"labels\"></div>\n                <div id=\"rowholder\"></div></div>\n            </div>\n        </div>\n        <div id=\"more_priceinfomation\" class=\"p15\">\n            <p>Penge brugt i alt: <span id=\"total\">0</span></p>\n            <div id=\"paymentdistributions\"></div>\n        </div>\n        \n");
+	        this.app.viewhandler.setView("<div class=\"home-view\">\n        <div class=\"p15\">\n            <p>Med denne side kan du beregne hvad de individulle g\xE6ster skylder eller har tilgode ved et sammenskudsgilde</p>\n            <p>Som standard betaler et barn det halve af en voksen\n                <button class=\"material-button material-ink material-ripple action\" style=\"margin-left: 10px;\" id=\"ret_mulighedder\">Ret / Tilf\xF8j fordeling</button>\n            </p>\n            <p><b>!!MEGET VIGTIG!! Udbetal ikke differance F\xD8R oplysniger fra ALLE DELTAGER er indtastet</b></p>\n        </div>\n        <div id=\"sidescroll\">\n            <div id=\"sidescroll_inner\" class=\"p15\">\n                <div id=\"labels\"></div>\n                <div id=\"rowholder\"></div></div>\n            </div>\n        </div>\n        <div id=\"more_priceinfomation\" class=\"p15\">\n            <p>Penge brugt i alt: <span id=\"total\">0</span></p>\n            <div id=\"paymentdistributions\"></div>\n        </div>\n        <div class=\"p15\">\n            <button class=\"material-button material-ink material-ripple\" id=\"reset\" style=\"    padding: 7px;\n            background: #d4d4d4;\n    font-size: 0.95em;\n    border-radius: 2px;\">Nulstil</button>\n        </div>\n        <p style=\"color: #666666; margin: 0 15px\">Psst. kan du ikke resultatet kan du rulle til siden i tabellen</p>\n        \n");
 	
 	        this.columnWidths = [];
 	        this.displayedRows = [];
 	
 	        this.retTilfoejMulighedder = document.querySelector("#ret_mulighedder");
+	        this.resetButton = document.querySelector("#reset");
 	        this.rowholder = document.querySelector("#rowholder");
 	        this.paymentdistributions = document.querySelector("#paymentdistributions");
 	        this.total = document.querySelector("#total");
@@ -282,6 +283,21 @@
 	
 	            this.view.addEventListener("keyup", function (_) {
 	                return _this.keuUp();
+	            });
+	
+	            this.resetButton.addEventListener("click", function (_) {
+	                var deletedGuests = _this.app.data.guests.slice(0);
+	
+	                _this.app.data.guests = [];
+	                _this.app.data.saveGuests();
+	
+	                _this.app.viewhandler.home();
+	
+	                materialFramework.tools.new_notification({ text: 'Gæsteliste nulstillet', time: 15000, actiontext: 'fortryd', action: function action() {
+	                        _this.app.data.guests = deletedGuests;
+	                        _this.app.data.saveGuests();
+	                        _this.app.viewhandler.home();
+	                    } });
 	            });
 	        }
 	    }, {
@@ -696,9 +712,10 @@
 	
 	        this.app = app;
 	
-	        this.app.viewhandler.setView("\n        <div class=\"ret-view p15\">            \n            <div class=\"table-labels\"> \n                <div style=\"width: 70%;\">Etikette</div> \n                <div style=\"width: 30%;\">% af en voksen</div> \n            </div>\n            <div class=\"clear\"></div>\n            <div id=\"ret_container\"></div>\n            <p>Hvis du fjerner en mulighed der er deltager p\xE5, bliver deltageren flyttet over i voksen kategorien</p>\n            <button class=\"material-button material-ink material-ripple action\" style=\"margin-top: 10px;\" id=\"ret_gem\">Gem</button>\n        </div>");
+	        this.app.viewhandler.setView("\n        <div class=\"ret-view p15\">            \n            <div class=\"table-labels\"> \n                <div style=\"width: 70%;\">Etikette</div> \n                <div style=\"width: 30%;\">% af en voksen</div> \n            </div>\n            <div class=\"clear\"></div>\n            <div id=\"ret_container\"></div>\n            <p>Hvis du fjerner en mulighed der er deltager p\xE5, bliver deltageren flyttet over i voksen kategorien</p>\n            <button class=\"material-button material-ink material-ripple action\" style=\"margin-top: 10px;\" id=\"ret_gem\">Gem</button>\n        \n        <br>\n            <button class=\"material-button material-ink material-ripple\" id=\"reset\" style=\"    padding: 7px;\n            background: #d4d4d4;\n    font-size: 0.95em;\n    border-radius: 2px; margin-top: 30px;\">Nulstil</button>\n    \n        </div>");
 	
 	        this.view = document.querySelector(".ret-view");
+	        this.resetButton = document.querySelector("#reset");
 	
 	        this.ret_container = document.querySelector("#ret_container");
 	
@@ -727,6 +744,52 @@
 	            this.app.elements.useBackButton().then(function (_) {
 	                return _this.goBack();
 	            });
+	
+	            this.resetButton.addEventListener("click", function (_) {
+	                var deletedPaymentDistribution = JSON.parse(JSON.stringify(_this.app.data.paymentDistribution));
+	                var deletedGuests = JSON.parse(JSON.stringify(_this.app.data.guests));
+	
+	                _this.app.data.standardPaymentDistributions();
+	                _this.app.data.savePaymentDistributionLines();
+	                _this.app.data.updateRemovedPaymentDistributionOptions();
+	
+	                _this.app.viewhandler.editPaymentDistribution();
+	
+	                materialFramework.tools.new_notification({ text: 'Betalings fordeling nulstillet', time: 15000, actiontext: 'fortryd', action: function action() {
+	                        _this.app.data.paymentDistribution = [];
+	                        var _iteratorNormalCompletion = true;
+	                        var _didIteratorError = false;
+	                        var _iteratorError = undefined;
+	
+	                        try {
+	                            for (var _iterator = deletedPaymentDistribution[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                                var paymentDistribution = _step.value;
+	
+	                                _this.app.data.paymentDistribution.push(new _PaymentDistribution2.default(paymentDistribution.name, paymentDistribution.value, paymentDistribution.editable, paymentDistribution.id));
+	                            }
+	                        } catch (err) {
+	                            _didIteratorError = true;
+	                            _iteratorError = err;
+	                        } finally {
+	                            try {
+	                                if (!_iteratorNormalCompletion && _iterator.return) {
+	                                    _iterator.return();
+	                                }
+	                            } finally {
+	                                if (_didIteratorError) {
+	                                    throw _iteratorError;
+	                                }
+	                            }
+	                        }
+	
+	                        _this.app.data.guests = deletedGuests;
+	
+	                        _this.app.data.savePaymentDistributionLines();
+	                        _this.app.data.saveGuests();
+	
+	                        _this.app.viewhandler.editPaymentDistribution();
+	                    } });
+	            });
 	        }
 	    }, {
 	        key: "goBack",
@@ -740,13 +803,13 @@
 	                errors = [],
 	                paymentDistributionLines = [];
 	
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
+	            var _iteratorNormalCompletion2 = true;
+	            var _didIteratorError2 = false;
+	            var _iteratorError2 = undefined;
 	
 	            try {
-	                for (var _iterator = lines[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var line = _step.value;
+	                for (var _iterator2 = lines[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	                    var line = _step2.value;
 	
 	                    var label = line.querySelector('[type="text"]').value,
 	                        value = line.querySelector('[type="number"]').value;
@@ -776,16 +839,16 @@
 	                    paymentDistributionLines.push(new _PaymentDistribution2.default(label, value, true, id));
 	                }
 	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
+	                _didIteratorError2 = true;
+	                _iteratorError2 = err;
 	            } finally {
 	                try {
-	                    if (!_iteratorNormalCompletion && _iterator.return) {
-	                        _iterator.return();
+	                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	                        _iterator2.return();
 	                    }
 	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
+	                    if (_didIteratorError2) {
+	                        throw _iteratorError2;
 	                    }
 	                }
 	            }
@@ -811,40 +874,15 @@
 	                return;
 	            }
 	            var newPaymentDistributionLines = [];
-	            var _iteratorNormalCompletion2 = true;
-	            var _didIteratorError2 = false;
-	            var _iteratorError2 = undefined;
-	
-	            try {
-	                for (var _iterator2 = this.app.data.paymentDistribution[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	                    var oldPaymentDistributionLine = _step2.value;
-	
-	                    if (!oldPaymentDistributionLine.editable) newPaymentDistributionLines.push(oldPaymentDistributionLine);
-	                }
-	            } catch (err) {
-	                _didIteratorError2 = true;
-	                _iteratorError2 = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	                        _iterator2.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError2) {
-	                        throw _iteratorError2;
-	                    }
-	                }
-	            }
-	
 	            var _iteratorNormalCompletion3 = true;
 	            var _didIteratorError3 = false;
 	            var _iteratorError3 = undefined;
 	
 	            try {
-	                for (var _iterator3 = paymentDistributionLines[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-	                    var paymentDistributionLine = _step3.value;
+	                for (var _iterator3 = this.app.data.paymentDistribution[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	                    var oldPaymentDistributionLine = _step3.value;
 	
-	                    newPaymentDistributionLines.push(paymentDistributionLine);
+	                    if (!oldPaymentDistributionLine.editable) newPaymentDistributionLines.push(oldPaymentDistributionLine);
 	                }
 	            } catch (err) {
 	                _didIteratorError3 = true;
@@ -861,29 +899,15 @@
 	                }
 	            }
 	
-	            this.app.data.paymentDistribution = newPaymentDistributionLines;
-	            this.app.data.savePaymentDistributionLines();
-	            this.app.data.updateRemovedPaymentDistributionOptions();
-	            this.goBack();
-	        }
-	    }, {
-	        key: "showList",
-	        value: function showList() {
 	            var _iteratorNormalCompletion4 = true;
 	            var _didIteratorError4 = false;
 	            var _iteratorError4 = undefined;
 	
 	            try {
-	                for (var _iterator4 = this.app.data.paymentDistribution[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-	                    var option = _step4.value;
+	                for (var _iterator4 = paymentDistributionLines[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+	                    var paymentDistributionLine = _step4.value;
 	
-	                    if (option.editable) {
-	
-	                        this.ret_container.innerHTML += "\n                <div class=\"dynline\" data-id=\"" + option.id + "\">\n                    <div style=\"width: 70%;\"><input type=\"text\" value=\"" + option.name + "\"></div> \n                    <div style=\"width: 30%;\"><input type=\"number\" min=\"1\" value=\"" + option.value + "\"></div> \n                \n                </div>\n                <div class=\"clear\"></div>";
-	                    } else {
-	
-	                        this.ret_container.innerHTML += "\n                <div data-id=\"" + option.id + "\">\n                    <div style=\"width: 70%;\">" + option.name + "</div> \n                    <div style=\"width: 30%;\">" + option.value + "</div> \n                \n                </div>\n                <div class=\"clear\"></div>";
-	                    }
+	                    newPaymentDistributionLines.push(paymentDistributionLine);
 	                }
 	            } catch (err) {
 	                _didIteratorError4 = true;
@@ -896,6 +920,45 @@
 	                } finally {
 	                    if (_didIteratorError4) {
 	                        throw _iteratorError4;
+	                    }
+	                }
+	            }
+	
+	            this.app.data.paymentDistribution = newPaymentDistributionLines;
+	            this.app.data.savePaymentDistributionLines();
+	            this.app.data.updateRemovedPaymentDistributionOptions();
+	            this.goBack();
+	        }
+	    }, {
+	        key: "showList",
+	        value: function showList() {
+	            var _iteratorNormalCompletion5 = true;
+	            var _didIteratorError5 = false;
+	            var _iteratorError5 = undefined;
+	
+	            try {
+	                for (var _iterator5 = this.app.data.paymentDistribution[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+	                    var option = _step5.value;
+	
+	                    if (option.editable) {
+	
+	                        this.ret_container.innerHTML += "\n                <div class=\"dynline\" data-id=\"" + option.id + "\">\n                    <div style=\"width: 70%;\"><input type=\"text\" value=\"" + option.name + "\"></div> \n                    <div style=\"width: 30%;\"><input type=\"number\" min=\"1\" value=\"" + option.value + "\"></div> \n                \n                </div>\n                <div class=\"clear\"></div>";
+	                    } else {
+	
+	                        this.ret_container.innerHTML += "\n                <div data-id=\"" + option.id + "\">\n                    <div style=\"width: 70%;\">" + option.name + "</div> \n                    <div style=\"width: 30%;\">" + option.value + "</div> \n                \n                </div>\n                <div class=\"clear\"></div>";
+	                    }
+	                }
+	            } catch (err) {
+	                _didIteratorError5 = true;
+	                _iteratorError5 = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion5 && _iterator5.return) {
+	                        _iterator5.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError5) {
+	                        throw _iteratorError5;
 	                    }
 	                }
 	            }

@@ -18,9 +18,17 @@ export default class EditPaymentDistribution {
             <div id="ret_container"></div>
             <p>Hvis du fjerner en mulighed der er deltager på, bliver deltageren flyttet over i voksen kategorien</p>
             <button class="material-button material-ink material-ripple action" style="margin-top: 10px;" id="ret_gem">Gem</button>
+        
+        <br>
+            <button class="material-button material-ink material-ripple" id="reset" style="    padding: 7px;
+            background: #d4d4d4;
+    font-size: 0.95em;
+    border-radius: 2px; margin-top: 30px;">Nulstil</button>
+    
         </div>`);
 
         this.view = document.querySelector(".ret-view");
+        this.resetButton = document.querySelector("#reset");
 
 
         this.ret_container = document.querySelector("#ret_container");
@@ -42,6 +50,36 @@ export default class EditPaymentDistribution {
 
         this.app.elements.useBackButton().then(_ => this.goBack());
 
+
+        this.resetButton.addEventListener("click", _ => {
+            let deletedPaymentDistribution = JSON.parse(JSON.stringify(this.app.data.paymentDistribution));
+            let deletedGuests = JSON.parse(JSON.stringify(this.app.data.guests));
+
+            this.app.data.standardPaymentDistributions();
+            this.app.data.savePaymentDistributionLines();
+            this.app.data.updateRemovedPaymentDistributionOptions();
+
+
+            this.app.viewhandler.editPaymentDistribution();
+
+
+            materialFramework.tools.new_notification({text:'Betalings fordeling nulstillet', time:15000, actiontext:'fortryd', action:()=>{
+                this.app.data.paymentDistribution = [];
+                for (let paymentDistribution of deletedPaymentDistribution) {
+                    this.app.data.paymentDistribution.push(new PaymentDistribution(
+                        paymentDistribution.name, paymentDistribution.value, paymentDistribution.editable, paymentDistribution.id
+                    ));
+                }
+
+                this.app.data.guests = deletedGuests;
+
+                this.app.data.savePaymentDistributionLines();
+                this.app.data.saveGuests();
+
+                this.app.viewhandler.editPaymentDistribution();
+            }})
+
+        })
     }
 
     goBack() {

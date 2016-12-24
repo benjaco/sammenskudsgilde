@@ -25,6 +25,13 @@ export default class Home {
             <p>Penge brugt i alt: <span id="total">0</span></p>
             <div id="paymentdistributions"></div>
         </div>
+        <div class="p15">
+            <button class="material-button material-ink material-ripple" id="reset" style="    padding: 7px;
+            background: #d4d4d4;
+    font-size: 0.95em;
+    border-radius: 2px;">Nulstil</button>
+        </div>
+        <p style="color: #666666; margin: 0 15px">Psst. kan du ikke resultatet kan du rulle til siden i tabellen</p>
         
 `);
 
@@ -33,6 +40,7 @@ export default class Home {
 
 
         this.retTilfoejMulighedder = document.querySelector("#ret_mulighedder");
+        this.resetButton = document.querySelector("#reset");
         this.rowholder = document.querySelector("#rowholder");
         this.paymentdistributions = document.querySelector("#paymentdistributions");
         this.total = document.querySelector("#total");
@@ -69,6 +77,21 @@ export default class Home {
 
         this.view.addEventListener("keyup", _ => this.keuUp());
 
+        this.resetButton.addEventListener("click", _ => {
+            let deletedGuests = this.app.data.guests.slice(0);
+
+            this.app.data.guests = [];
+            this.app.data.saveGuests();
+
+            this.app.viewhandler.home();
+
+            materialFramework.tools.new_notification({text:'Gæsteliste nulstillet', time:15000, actiontext:'fortryd', action:()=>{
+                this.app.data.guests = deletedGuests;
+                this.app.data.saveGuests();
+                this.app.viewhandler.home();
+            }})
+
+        })
 
     }
 
