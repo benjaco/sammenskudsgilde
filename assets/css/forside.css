@@ -46,3 +46,18 @@
   overflow-x: scroll;
   white-space: nowrap;
 }
+.calcbutton {
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  color: #ffffff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 40px;
+  background: #da4437;
+}

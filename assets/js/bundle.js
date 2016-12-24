@@ -54,7 +54,7 @@
 	
 	var _ViewHandler2 = _interopRequireDefault(_ViewHandler);
 	
-	var _DataHandler = __webpack_require__(6);
+	var _DataHandler = __webpack_require__(7);
 	
 	var _DataHandler2 = _interopRequireDefault(_DataHandler);
 	
@@ -144,7 +144,7 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _EditPaymentDistribution = __webpack_require__(4);
+	var _EditPaymentDistribution = __webpack_require__(5);
 	
 	var _EditPaymentDistribution2 = _interopRequireDefault(_EditPaymentDistribution);
 	
@@ -195,7 +195,7 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -203,13 +203,18 @@
 	    value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by Benjamin on 19-12-2016.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+	
+	
+	var _Calculator = __webpack_require__(4);
+	
+	var _Calculator2 = _interopRequireDefault(_Calculator);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	/**
-	 * Created by Benjamin on 19-12-2016.
-	 */
 	
 	var Home = function () {
 	    function Home(app) {
@@ -217,13 +222,14 @@
 	
 	        this.app = app;
 	
-	        this.app.viewhandler.setView("<div class=\"home-view\">\n        <div class=\"p15\">\n            <p>Med denne side kan du beregne hvad de individulle g\xE6ster skylder eller har tilgode ved et sammenskudsgilde</p>\n            <p>Som standard betaler et barn det halve af en voksen\n                <button class=\"material-button material-ink material-ripple action\" style=\"margin-left: 10px;\" id=\"ret_mulighedder\">Ret / Tilf\xF8j fordeling</button>\n            </p>\n            <p><b>!!MEGET VIGTIG!! Udbetal ikke differance F\xD8R oplysniger fra ALLE DELTAGER er indtastet</b></p>\n        </div>\n        <div id=\"sidescroll\">\n            <div id=\"sidescroll_inner\" class=\"p15\">\n                <div id=\"labels\"></div>\n                <div id=\"rowholder\"></div></div>\n            </div>\n        </div>\n        <div id=\"more_priceinfomation\" class=\"p15\">\n            <p>Penge brugt i alt: <span id=\"total\">0</span></p>\n            <div id=\"paymentdistributions\"></div>\n        </div>\n        <div class=\"p15\">\n            <button class=\"material-button material-ink material-ripple\" id=\"reset\" style=\"    padding: 7px;\n            background: #d4d4d4;\n    font-size: 0.95em;\n    border-radius: 2px;\">Nulstil</button>\n        </div>\n        <p style=\"color: #666666; margin: 0 15px\">Psst. kan du ikke resultatet kan du rulle til siden i tabellen</p>\n        \n");
+	        this.app.viewhandler.setView("<div class=\"home-view\">\n        <div class=\"p15\">\n            <p>Med denne side kan du beregne hvad de individulle g\xE6ster skylder eller har tilgode ved et sammenskudsgilde</p>\n            <p>Som standard betaler et barn det halve af en voksen\n                <button class=\"material-button material-ink material-ripple action\" style=\"margin-left: 10px;\" id=\"ret_mulighedder\">Ret / Tilf\xF8j fordeling</button>\n            </p>\n            <p><b>!!MEGET VIGTIG!! Udbetal ikke differance F\xD8R oplysniger fra ALLE DELTAGER er indtastet</b></p>\n        </div>\n        <div id=\"sidescroll\">\n            <div id=\"sidescroll_inner\" class=\"p15\">\n                <div id=\"labels\"></div>\n                <div id=\"rowholder\"></div></div>\n            </div>\n        </div>\n        <div id=\"more_priceinfomation\" class=\"p15\">\n            <p>Penge brugt i alt: <span id=\"total\">0</span></p>\n            <div id=\"paymentdistributions\"></div>\n        </div>\n        <div class=\"p15\">\n            <button class=\"material-button material-ink material-ripple\" id=\"reset\" style=\"    padding: 7px;\n            background: #d4d4d4;\n    font-size: 0.95em;\n    border-radius: 2px;\">Nulstil</button>\n        </div>\n        <p style=\"color: #666666; margin: 0 15px\">Psst. kan du ikke resultatet kan du rulle til siden i tabellen</p>\n        \n        <div class=\"calcbutton material-z1\">=</div>\n        \n");
 	
 	        this.columnWidths = [];
 	        this.displayedRows = [];
 	
 	        this.retTilfoejMulighedder = document.querySelector("#ret_mulighedder");
 	        this.resetButton = document.querySelector("#reset");
+	        this.calcButton = document.querySelector(".calcbutton");
 	        this.rowholder = document.querySelector("#rowholder");
 	        this.paymentdistributions = document.querySelector("#paymentdistributions");
 	        this.total = document.querySelector("#total");
@@ -277,12 +283,25 @@
 	                return _this.app.viewhandler.editPaymentDistribution();
 	            });
 	
+	            var focusedElement = false;
+	
 	            $(this.rowholder).on("change", ".material-checkbox", function (_) {
 	                _this.calculate(true);
 	            });
 	            $(this.rowholder).on("blur", ".indskud", function (e) {
 	                $(e.target).val($(e.target).val());
+	                _this.calcButton.style.display = "none";
 	                _this.calculate();
+	            });
+	            $(this.rowholder).on("focus", ".indskud", function (e) {
+	                _this.calcButton.style.display = "flex";
+	                focusedElement = new Date().getTime();
+	                $(e.target).attr("data-ref", focusedElement);
+	            });
+	            this.calcButton.addEventListener("mousedown", function (e) {
+	                _Calculator2.default.calculate($("[data-ref=" + focusedElement + "]").val()).then(function (value) {
+	                    $("[data-ref=" + focusedElement + "]").val(value);
+	                }).catch(function () {});
 	            });
 	
 	            this.view.addEventListener("keyup", function (_) {
@@ -297,11 +316,13 @@
 	
 	                _this.app.viewhandler.home();
 	
-	                materialFramework.tools.new_notification({ text: 'Gæsteliste nulstillet', time: 15000, actiontext: 'fortryd', action: function action() {
+	                materialFramework.tools.new_notification({
+	                    text: 'Gæsteliste nulstillet', time: 15000, actiontext: 'fortryd', action: function action() {
 	                        _this.app.data.guests = deletedGuests;
 	                        _this.app.data.saveGuests();
 	                        _this.app.viewhandler.home();
-	                    } });
+	                    }
+	                });
 	            });
 	        }
 	    }, {
@@ -686,6 +707,207 @@
 
 /***/ },
 /* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	/**
+	 * Created by Benjamin on 24-12-2016.
+	 */
+	
+	var Calculator = function () {
+	    function Calculator(defaultValue) {
+	        _classCallCheck(this, Calculator);
+	
+	        this.defaultValue = defaultValue;
+	
+	        this.value = defaultValue;
+	
+	        this.result = defaultValue;
+	
+	        this.onclose = function () {};
+	        this.ondone = function () {};
+	
+	        this.view = this.makeView();
+	
+	        document.body.innerHTML += this.view;
+	
+	        this.calculaterElement = document.querySelector(".calculator");
+	
+	        this.inputEl = this.calculaterElement.querySelector(".input");
+	        this.resultEl = this.calculaterElement.querySelector(".result");
+	
+	        this.inputEl.innerHTML = this.value;
+	        this.resultEl.innerHTML = this.value;
+	
+	        this.addEventListeners();
+	    }
+	
+	    _createClass(Calculator, [{
+	        key: "makeView",
+	        value: function makeView() {
+	            return "\n            <div class=\"calculator\">\n                <div class=\"top\">\n                    <div class=\"luk material-z1\">Luk og fortryd</div>\n                    <div class=\"input\"></div>\n                    <div class=\"result\"></div>\n                </div>\n                <div class=\"controls\">\n                    <div class=\"numbers\">\n                        <div class=\"number material-ink\" data-nr=\"7\">7</div>\n                        <div class=\"number material-ink\" data-nr=\"8\">8</div>\n                        <div class=\"number material-ink\" data-nr=\"9\">9</div>\n                        <div class=\"clear\"></div>\n                        \n                        <div class=\"number material-ink\" data-nr=\"4\">4</div>\n                        <div class=\"number material-ink\" data-nr=\"5\">5</div>\n                        <div class=\"number material-ink\" data-nr=\"6\">6</div>\n                        <div class=\"clear\"></div>\n                        \n                        <div class=\"number material-ink\" data-nr=\"1\">1</div>\n                        <div class=\"number material-ink\" data-nr=\"2\">2</div>\n                        <div class=\"number material-ink\" data-nr=\"3\">3</div>\n                        <div class=\"clear\"></div>\n                        \n                        <div class=\"number material-ink\" data-nr=\",\">,</div>\n                        <div class=\"number material-ink\" data-nr=\"0\">0</div>\n                        <div class=\"clear\"></div>\n                    </div>\n                    <div class=\"actions\">\n                        <div class=\"calc-action material-ink\" data-action=\"del\">DEL</div>\n                        <div class=\"calc-action material-ink\" data-action=\"+\">+</div>\n                        <div class=\"calc-action material-ink\" data-action=\"-\">-</div>\n                    </div>\n                    <div class=\"ok material-z1 action\">Ok</div>\n                </div>\n            </div>\n        ";
+	        }
+	    }, {
+	        key: "plus",
+	        value: function plus() {
+	            if (this.value.toString().length > 0) {
+	                this.value = this.cleanEnd(this.value);
+	                if (this.value.toString().length > 0) {
+	                    this.value += "+";
+	                }
+	            }
+	            this.showAndCalc();
+	        }
+	    }, {
+	        key: "minues",
+	        value: function minues() {
+	            if (this.value.toString().length > 0) {
+	                this.value = this.cleanEnd(this.value);
+	                if (this.value.toString().length > 0) {
+	                    this.value += "-";
+	                }
+	            }
+	            this.showAndCalc();
+	        }
+	    }, {
+	        key: "del",
+	        value: function del() {
+	            if (this.value.toString().length > 0) {
+	                this.value = this.value.toString().substr(0, this.value.length - 1);
+	            }
+	            this.showAndCalc();
+	        }
+	    }, {
+	        key: "number",
+	        value: function number(_number) {
+	            if (_number == ",") {
+	                if (this.value.toString().length == 0) {
+	                    return;
+	                }
+	                var lastvalue = this.value.toString().substr(this.value.length - 1, 1);
+	                if (lastvalue == "," || lastvalue == "+" || lastvalue == "-") {
+	                    return;
+	                }
+	                var numarray = this.value.toString().split(/(\+|-)/g);
+	                var lastnr = numarray[numarray.length - 1];
+	
+	                if (lastnr.indexOf(",") > -1) {
+	                    return;
+	                }
+	            }
+	
+	            this.value += "" + _number;
+	            this.showAndCalc();
+	        }
+	    }, {
+	        key: "showAndCalc",
+	        value: function showAndCalc() {
+	            this.inputEl.innerHTML = this.value;
+	
+	            var calcvar = this.value.toString();
+	
+	            calcvar = calcvar.replace(/,/g, ".");
+	
+	            if (calcvar.length == 0) {
+	                this.result = "";
+	                this.resultEl.innerHTML = "";
+	            } else {
+	                calcvar = this.cleanEnd(calcvar);
+	
+	                if (calcvar.length > 0) {
+	                    try {
+	                        var resultInt = eval(calcvar);
+	                        var result = resultInt.toString();
+	                        this.result = resultInt;
+	                        this.resultEl.innerHTML = result.replace(/\./g, ",");
+	                    } catch (e) {
+	                        this.result = "";
+	                        this.resultEl.innerHTML = "FEJL";
+	                    }
+	                } else {
+	                    this.result = "";
+	                    this.resultEl.innerHTML = "";
+	                }
+	            }
+	        }
+	    }, {
+	        key: "addEventListeners",
+	        value: function addEventListeners() {
+	            var _this = this;
+	
+	            var object = this;
+	
+	            $(this.calculaterElement).find("[data-nr]").click(function () {
+	                object.number($(this).attr("data-nr"));
+	            });
+	            $(this.calculaterElement).find("[data-action]").click(function () {
+	                switch ($(this).attr("data-action")) {
+	                    case "del":
+	                        object.del();
+	                        break;
+	                    case "+":
+	                        object.plus();
+	                        break;
+	                    case "-":
+	                        object.minues();
+	                }
+	            });
+	            this.calculaterElement.querySelector(".luk").addEventListener("click", function () {
+	                $(_this.calculaterElement).remove();
+	                _this.onclose();
+	            });
+	            this.calculaterElement.querySelector(".ok").addEventListener("click", function () {
+	                $(_this.calculaterElement).remove();
+	                _this.ondone(_this.result);
+	            });
+	        }
+	    }, {
+	        key: "cleanEnd",
+	        value: function cleanEnd(value) {
+	            value = value.toString();
+	            while (true) {
+	                var lastvalue = value.substr(value.length - 1, 1);
+	
+	                if (lastvalue == "+" || lastvalue == "-" || lastvalue == ",") {
+	                    value = value.substr(0, value.length - 1);
+	                } else {
+	                    break;
+	                }
+	            }
+	            return value;
+	        }
+	    }], [{
+	        key: "calculate",
+	        value: function calculate(defaultValue) {
+	            var calculator = new Calculator(defaultValue);
+	
+	            return new Promise(function (succes, fail) {
+	                calculator.onclose = function () {
+	                    fail();
+	                };
+	                calculator.ondone = function (value) {
+	                    succes(value);
+	                };
+	            });
+	        }
+	    }]);
+	
+	    return Calculator;
+	}();
+	
+	exports.default = Calculator;
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -699,11 +921,11 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 	
 	
-	var _PaymentDistribution = __webpack_require__(5);
+	var _PaymentDistribution = __webpack_require__(6);
 	
 	var _PaymentDistribution2 = _interopRequireDefault(_PaymentDistribution);
 	
-	var _DataHandler = __webpack_require__(6);
+	var _DataHandler = __webpack_require__(7);
 	
 	var _DataHandler2 = _interopRequireDefault(_DataHandler);
 	
@@ -1018,7 +1240,7 @@
 	;
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1044,7 +1266,7 @@
 	exports.default = PaymentDistribution;
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1058,7 +1280,7 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 	
 	
-	var _PaymentDistribution = __webpack_require__(5);
+	var _PaymentDistribution = __webpack_require__(6);
 	
 	var _PaymentDistribution2 = _interopRequireDefault(_PaymentDistribution);
 	

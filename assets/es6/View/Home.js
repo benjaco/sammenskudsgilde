@@ -1,6 +1,7 @@
 /**
  * Created by Benjamin on 19-12-2016.
  */
+import Calculator from "../Calculator";
 
 export default class Home {
 
@@ -33,6 +34,8 @@ export default class Home {
         </div>
         <p style="color: #666666; margin: 0 15px">Psst. kan du ikke resultatet kan du rulle til siden i tabellen</p>
         
+        <div class="calcbutton material-z1">=</div>
+        
 `);
 
         this.columnWidths = [];
@@ -41,6 +44,7 @@ export default class Home {
 
         this.retTilfoejMulighedder = document.querySelector("#ret_mulighedder");
         this.resetButton = document.querySelector("#reset");
+        this.calcButton = document.querySelector(".calcbutton");
         this.rowholder = document.querySelector("#rowholder");
         this.paymentdistributions = document.querySelector("#paymentdistributions");
         this.total = document.querySelector("#total");
@@ -61,7 +65,6 @@ export default class Home {
         this.calculate();
         this.addRow();
 
-
     }
 
     remove() {
@@ -71,12 +74,26 @@ export default class Home {
     addEventListeners() {
         this.retTilfoejMulighedder.addEventListener("click", _ => this.app.viewhandler.editPaymentDistribution());
 
+        let focusedElement = false;
+
         $(this.rowholder).on("change", ".material-checkbox", _ => {
             this.calculate(true);
         });
         $(this.rowholder).on("blur", ".indskud", e => {
             $(e.target).val($(e.target).val());
+            this.calcButton.style.display = "none";
             this.calculate()
+        });
+        $(this.rowholder).on("focus", ".indskud", e => {
+            this.calcButton.style.display = "flex";
+            focusedElement = new Date().getTime();
+            $(e.target).attr("data-ref", focusedElement);
+        });
+        this.calcButton.addEventListener("mousedown", e => {
+            Calculator.calculate($("[data-ref="+focusedElement+"]").val() ).then(value => {
+                $("[data-ref="+focusedElement+"]").val(value)
+            }).catch(()=>{});
+
         });
 
         this.view.addEventListener("keyup", _ => this.keuUp());
@@ -89,11 +106,13 @@ export default class Home {
 
             this.app.viewhandler.home();
 
-            materialFramework.tools.new_notification({text:'Gæsteliste nulstillet', time:15000, actiontext:'fortryd', action:()=>{
-                this.app.data.guests = deletedGuests;
-                this.app.data.saveGuests();
-                this.app.viewhandler.home();
-            }})
+            materialFramework.tools.new_notification({
+                text: 'Gæsteliste nulstillet', time: 15000, actiontext: 'fortryd', action: () => {
+                    this.app.data.guests = deletedGuests;
+                    this.app.data.saveGuests();
+                    this.app.viewhandler.home();
+                }
+            })
 
         })
 

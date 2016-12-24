@@ -1,0 +1,124 @@
+.calculator{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+  background: #ECECEC;
+
+  .top{
+    height: 40%;
+
+    @media screen and (max-height: 330px){
+      .input{
+        top: 5% !important;
+      }
+      .result{
+        top: 20% !important;
+      }
+    }
+
+    .input{
+      padding: 2%;
+      position: absolute;
+      top: 18%;
+      right: 0;
+      font-size: 35px;
+    }
+    .result{
+      padding: 2%;
+      position: absolute;
+      top: 28%;
+      right: 0;
+      color: #999;
+      font-size: 25px;
+    }
+    .luk{
+      display: inline-block;
+      padding: 10px 16px;
+      margin: 3%;
+      border-radius: 2px;
+      background: #FFF;
+
+      cursor: pointer;
+    }
+  }
+  .controls {
+    position: absolute;
+    top: 40%;
+    bottom: 0;
+    width: 100%;
+    cursor: pointer;
+
+    box-shadow: inset 0 12px 12px rgba(0, 0, 0, 0.25);
+
+    background: #4c4c4c;
+
+
+    .actions{
+      box-shadow: inset 0 12px 12px rgba(0, 0, 0, 0.25);
+      background-color: #666;
+      border-left: 1px solid #444;
+
+      width: 25%;
+      float: right;
+      height: 100%;
+
+      .calc-action{
+        color: #ffffff;
+        height: 25%;
+        text-align: center;
+
+        font-size: 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+    }
+    .numbers{
+      width: 74%;
+      float: left;
+      height: 100%;
+
+      .number{
+        width: 33%;
+        float: left;
+        color: #ffffff;
+        height: 25%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+
+        font-size: 20px;
+
+      }
+    }
+
+    .ok{
+      width: 40%;
+      height: 15%;
+
+      position: absolute;
+      bottom: 5%;
+      right: 5%;
+
+
+
+      text-align: center;
+
+      font-size: 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+
+  }
+}
