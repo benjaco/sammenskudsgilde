@@ -32,7 +32,7 @@ export default class Home {
     font-size: 0.95em;
     border-radius: 2px;">Nulstil</button>
         </div>
-        <p style="color: #666666; margin: 0 15px">Psst. kan du ikke resultatet kan du rulle til siden i tabellen</p>
+        <p style="color: #666666; margin: 0 15px">Psst. kan du ikke resultatet kan du rulle til siden i tabellen <br> lommeregner virker til nytår</p>
         
         <div class="calcbutton material-z1">=</div>
         
