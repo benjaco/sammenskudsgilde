@@ -290,7 +290,7 @@
 	            });
 	            $(this.rowholder).on("blur", ".indskud", function (e) {
 	                $(e.target).val($(e.target).val());
-	                _this.calcButton.style.display = "none";
+	                // _this.calcButton.style.display = "none";
 	                _this.calculate();
 	            });
 	            $(this.rowholder).on("focus", ".indskud", function (e) {
