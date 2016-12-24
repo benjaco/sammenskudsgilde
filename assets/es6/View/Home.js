@@ -74,6 +74,10 @@ export default class Home {
         $(this.rowholder).on("change", ".material-checkbox", _ => {
             this.calculate(true);
         });
+        $(this.rowholder).on("blur", ".indskud", e => {
+            $(e.target).val($(e.target).val());
+            this.calculate()
+        });
 
         this.view.addEventListener("keyup", _ => this.keuUp());
 
@@ -241,7 +245,7 @@ class Row {
         contribution.setAttribute("type", "number");
         contribution.setAttribute("placeholder", "Indskud ");
         contribution.setAttribute("min", "0");
-
+        contribution.className = "indskud";
 
         this.row.appendChild(contribution);
 

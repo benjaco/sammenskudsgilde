@@ -280,6 +280,10 @@
 	            $(this.rowholder).on("change", ".material-checkbox", function (_) {
 	                _this.calculate(true);
 	            });
+	            $(this.rowholder).on("blur", ".indskud", function (e) {
+	                $(e.target).val($(e.target).val());
+	                _this.calculate();
+	            });
 	
 	            this.view.addEventListener("keyup", function (_) {
 	                return _this.keuUp();
@@ -544,6 +548,7 @@
 	        contribution.setAttribute("type", "number");
 	        contribution.setAttribute("placeholder", "Indskud ");
 	        contribution.setAttribute("min", "0");
+	        contribution.className = "indskud";
 	
 	        this.row.appendChild(contribution);
 	
