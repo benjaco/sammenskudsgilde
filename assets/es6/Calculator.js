@@ -1,6 +1,15 @@
 /**
  * Created by Benjamin on 24-12-2016.
  */
+String.prototype.toDOM=function(){
+    let d=document
+        ,i
+        ,a=d.createElement("div")
+        ,b=d.createDocumentFragment();
+    a.innerHTML=this;
+    while(i=a.firstChild)b.appendChild(i);
+    return b;
+};
 
 export default class Calculator {
 
@@ -18,7 +27,7 @@ export default class Calculator {
 
         this.view = this.makeView();
 
-        document.body.innerHTML += this.view;
+        document.body.appendChild(this.view.toDOM());
 
         this.calculaterElement = document.querySelector(".calculator");
 

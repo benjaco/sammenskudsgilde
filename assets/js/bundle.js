@@ -222,7 +222,7 @@
 	
 	        this.app = app;
 	
-	        this.app.viewhandler.setView("<div class=\"home-view\">\n        <div class=\"p15\">\n            <p>Med denne side kan du beregne hvad de individulle g\xE6ster skylder eller har tilgode ved et sammenskudsgilde</p>\n            <p>Som standard betaler et barn det halve af en voksen\n                <button class=\"material-button material-ink material-ripple action\" style=\"margin-left: 10px;\" id=\"ret_mulighedder\">Ret / Tilf\xF8j fordeling</button>\n            </p>\n            <p><b>!!MEGET VIGTIG!! Udbetal ikke differance F\xD8R oplysniger fra ALLE DELTAGER er indtastet</b></p>\n        </div>\n        <div id=\"sidescroll\">\n            <div id=\"sidescroll_inner\" class=\"p15\">\n                <div id=\"labels\"></div>\n                <div id=\"rowholder\"></div></div>\n            </div>\n        </div>\n        <div id=\"more_priceinfomation\" class=\"p15\">\n            <p>Penge brugt i alt: <span id=\"total\">0</span></p>\n            <div id=\"paymentdistributions\"></div>\n        </div>\n        <div class=\"p15\">\n            <button class=\"material-button material-ink material-ripple\" id=\"reset\" style=\"    padding: 7px;\n            background: #d4d4d4;\n    font-size: 0.95em;\n    border-radius: 2px;\">Nulstil</button>\n        </div>\n        <p style=\"color: #666666; margin: 0 15px\">Psst. kan du ikke resultatet kan du rulle til siden i tabellen</p>\n        \n        <div class=\"calcbutton material-z1\">=</div>\n        \n");
+	        this.app.viewhandler.setView("<div class=\"home-view\">\n        <div class=\"p15\">\n            <p>Med denne side kan du beregne hvad de individulle g\xE6ster skylder eller har tilgode ved et sammenskudsgilde</p>\n            <p>Som standard betaler et barn det halve af en voksen\n                <button class=\"material-button material-ink material-ripple action\" style=\"margin-left: 10px;\" id=\"ret_mulighedder\">Ret / Tilf\xF8j fordeling</button>\n            </p>\n            <p><b>!!MEGET VIGTIG!! Udbetal ikke differance F\xD8R oplysniger fra ALLE DELTAGER er indtastet</b></p>\n        </div>\n        <div id=\"sidescroll\">\n            <div id=\"sidescroll_inner\" class=\"p15\">\n                <div id=\"labels\"></div>\n                <div id=\"rowholder\"></div></div>\n            </div>\n        </div>\n        <div id=\"more_priceinfomation\" class=\"p15\">\n            <p>Penge brugt i alt: <span id=\"total\">0</span></p>\n            <div id=\"paymentdistributions\"></div>\n        </div>\n        <div class=\"p15\">\n            <button class=\"material-button material-ink material-ripple\" id=\"reset\" style=\"    padding: 7px;\n            background: #d4d4d4;\n    font-size: 0.95em;\n    border-radius: 2px;\">Nulstil</button>\n        </div>\n        <p style=\"color: #666666; margin: 0 15px\">Psst. kan du ikke resultatet kan du rulle til siden i tabellen <br> lommeregner virker til nyt\xE5r</p>\n        \n        <div class=\"calcbutton material-z1\">=</div>\n        \n");
 	
 	        this.columnWidths = [];
 	        this.displayedRows = [];
@@ -722,6 +722,16 @@
 	/**
 	 * Created by Benjamin on 24-12-2016.
 	 */
+	String.prototype.toDOM = function () {
+	    var d = document,
+	        i = void 0,
+	        a = d.createElement("div"),
+	        b = d.createDocumentFragment();
+	    a.innerHTML = this;
+	    while (i = a.firstChild) {
+	        b.appendChild(i);
+	    }return b;
+	};
 	
 	var Calculator = function () {
 	    function Calculator(defaultValue) {
@@ -738,7 +748,7 @@
 	
 	        this.view = this.makeView();
 	
-	        document.body.innerHTML += this.view;
+	        document.body.appendChild(this.view.toDOM());
 	
 	        this.calculaterElement = document.querySelector(".calculator");
 	
