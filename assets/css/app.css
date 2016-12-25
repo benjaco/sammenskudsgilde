@@ -167,7 +167,6 @@ body {
   top: 40%;
   bottom: 0;
   width: 100%;
-  cursor: pointer;
   box-shadow: inset 0 12px 12px rgba(0, 0, 0, 0.25);
   background: #e6e6e6;
 }
@@ -176,6 +175,7 @@ body {
   background-color: #bbb;
   border-left: 1px solid #8a8a8a;
   width: 25%;
+  box-sizing: border-box;
   float: right;
   height: 100%;
 }
@@ -188,12 +188,12 @@ body {
   justify-content: center;
 }
 .calculator .controls .numbers {
-  width: 74%;
+  width: 75%;
   float: left;
   height: 100%;
 }
 .calculator .controls .numbers .number {
-  width: 33%;
+  width: 33.33%;
   float: left;
   height: 25%;
   display: flex;
