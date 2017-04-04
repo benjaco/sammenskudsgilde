@@ -1,4 +1,4 @@
-#Sammenskudsgilde beregner
+# Sammenskudsgilde beregner
 
 Med denne side kan du beregne hvad de individuelle gæster skylder eller har tilgode ved et sammenskudsgilde
 
